@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url(https://modelodia.pacifico.com.pe/o/portal.asesoria.digital.login/images/backgrpund-degrade.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        h2{
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 16px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario de Contacto</h2>
+
+    <form id="contact-form">
+        <label for="doc-type">Tipo de documento</label>
+        <select id="doc-type" name="doc-type" required>
+            <option value="">Selecciona un tipo de documento</option>
+            <option value="DNI">DNI</option>
+            <option value="RUC">RUC</option>
+        </select>
+
+        <label for="document-number">Número de documento</label>
+        <input type="text" id="document-number" name="document-number" required>
+
+        <label for="full-name">Nombre completo</label>
+        <input type="text" id="full-name" name="full-name" required>
+
+        <label for="phone">Teléfono</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="gender">Sexo</label>
+        <select id="gender" name="gender" required>
+            <option value="">Selecciona tu sexo</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+
+        <label for="dob">Fecha de nacimiento</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="marital-status">Estado civil</label>
+        <select id="marital-status" name="marital-status" required>
+            <option value="">Selecciona tu estado civil</option>
+            <option value="Solter@">Solter@</option>
+            <option value="Casad@">Casad@</option>
+        </select>
+
+        <button type="submit">Enviar</button>
+
+        <p id="message" class="error"></p>
+    </form>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let message = document.getElementById('message');
+            message.textContent = ''; // Clear previous messages
+
+            let docType = document.getElementById('doc-type').value;
+            let documentNumber = document.getElementById('document-number').value;
+            let phone = document.getElementById('phone').value;
+            let fullName = document.getElementById('full-name').value;
+            let email = document.getElementById('email').value;
+            let gender = document.getElementById('gender').value;
+            let dob = document.getElementById('dob').value;
+            let maritalStatus = document.getElementById('marital-status').value;
+
+            if (docType === 'DNI' && (!/^\d{8}$/.test(documentNumber))) {
+                message.textContent = 'El número de DNI debe tener 8 dígitos y ser un número.';
+                return;
+            } else if (docType === 'RUC' && (!/^\d{10}$/.test(documentNumber))) {
+                message.textContent = 'El número de RUC debe tener 10 dígitos y ser un número.';
+                return;
+            }
+
+            if (!/^\d{9}$/.test(phone)) {
+                message.textContent = 'El teléfono debe tener 9 dígitos y ser un número.';
+                return;
+            }
+
+            if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(fullName)) {
+                message.textContent = 'El nombre completo solo debe contener letras y espacios.';
+                return;
+            }
+
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                message.textContent = 'Por favor ingresa un correo electrónico válido.';
+                return;
+            }
+
+            if (message.textContent === '') {
+                message.textContent = 'Datos enviados correctamente';
+                message.className = 'success';
+            } else {
+                message.textContent = 'Uno o más campos tienen un error. Por favor revisa e inténtalo de nuevo.';
+                message.className = 'error';
+            }
+        });
+    </script>
+
+</body>
+</html>
+</body>
+</html>
